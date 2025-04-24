@@ -9,4 +9,5 @@ RUN pip install pillow
 
 EXPOSE 8080
 
-CMD ["python", "server.py"]
+CMD ["python", "-u", "server.py"]
+
