@@ -6,8 +6,6 @@ services:
       context: ./server
     ports:
       - "8080:8080"
-    networks:
-      - app_network
 
   client:
     build:
@@ -15,9 +13,7 @@ services:
     depends_on:
       - server
     environment:
-      - SERVER_URL=http://server:8080
-    networks:
-      - app_network
+      - SERVER_URL=http://0.0.0.0:8080
 
 networks:
   app_network:
