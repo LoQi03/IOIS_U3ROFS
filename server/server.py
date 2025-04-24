@@ -58,8 +58,28 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(result.encode("utf-8"))
 
+    def do_GET(self):
+        html_content = """
+        <!DOCTYPE html>
+        <html lang="hu">
+        <head>
+            <meta charset="UTF-8">
+            <title>Server state</title>
+        </head>
+        <body>
+            <h1>Server is running!</h1>
+        </body>
+        </html>
+        """.format(version=CURRENT_VERSION)
+
+        self.send_response(200)
+        self.send_header("Content-type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(html_content.encode("utf-8"))))
+        self.end_headers()
+        self.wfile.write(html_content.encode("utf-8"))
+
 def run_server():
-    server = HTTPServer(('localhost', 8080), RequestHandler)
+    server = HTTPServer(('0.0.0.0', 8080), RequestHandler)
     print("Server started at http://0.0.0.0:8080")
     server.serve_forever()
 
